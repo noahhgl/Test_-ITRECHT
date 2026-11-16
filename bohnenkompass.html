@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bohnenkompass® – Kaffeerösterei & Café Hamburg</title>
+<!-- Gruppe 3 – Internetrecht WiSe 26/27 – letzte Änderung: Jonas, 03.11. -->
+<style>
+  :root{
+    --bean:#3b2a20; --bean2:#5a4031; --crema:#f6eddf; --paper:#fffaf3;
+    --accent:#c8742b; --accent2:#e39b54; --green:#4f7a52; --red:#b3402e;
+    --line:#e3d4bf; --muted:#7a6656;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;background:var(--crema);color:var(--bean);line-height:1.55}
+  h1,h2,h3{font-family:Georgia,"Times New Roman",serif;line-height:1.2}
+  a{color:var(--accent)}
+  .studybar{background:#2a1d15;color:#f3d9b8;font-size:13px;text-align:center;padding:6px 10px}
+  header{background:var(--bean);color:#fff;position:sticky;top:0;z-index:20;box-shadow:0 2px 10px rgba(0,0,0,.25)}
+  .hwrap{max-width:1120px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 20px;gap:16px;flex-wrap:wrap}
+  .logo{display:flex;align-items:center;gap:10px;font-family:Georgia,serif;font-size:24px;font-weight:bold;color:#fff;text-decoration:none}
+  .logo small{display:block;font-family:"Segoe UI",sans-serif;font-size:11px;font-weight:normal;letter-spacing:2px;color:var(--accent2);text-transform:uppercase}
+  nav a{color:#f3e6d6;text-decoration:none;margin-left:16px;font-size:15px;padding:4px 0;border-bottom:2px solid transparent}
+  nav a:hover,nav a.active{border-bottom-color:var(--accent2);color:#fff}
+  .cart{background:var(--accent);color:#fff!important;padding:6px 12px!important;border-radius:18px;border:none!important}
+  main{max-width:1120px;margin:0 auto;padding:28px 20px 40px}
+  .page{display:none;animation:fade .25s}
+  .page.show{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1}}
+  .hero{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:center;background:linear-gradient(135deg,#4a3326,#2c1f17);color:#fff;border-radius:18px;padding:36px;position:relative;overflow:hidden}
+  .hero h1{font-size:42px;margin:0 0 10px}
+  .hero p{color:#f0dcc4;font-size:17px}
+  .badge{display:inline-block;background:var(--accent);color:#fff;font-size:12px;font-weight:bold;padding:4px 10px;border-radius:12px;letter-spacing:.5px;margin:0 6px 8px 0}
+  .badge.green{background:var(--green)}
+  .btn{display:inline-block;background:var(--accent);color:#fff;border:none;padding:11px 20px;border-radius:24px;font-size:15px;font-weight:600;text-decoration:none;cursor:pointer}
+  .btn:hover{background:#ad5f1e}
+  .btn.ghost{background:transparent;border:2px solid var(--accent2);color:#fff}
+  .ph{border-radius:14px;min-height:240px;display:flex;align-items:flex-end;justify-content:flex-start;padding:10px;color:#fff;font-size:12px;position:relative;overflow:hidden}
+  .ph span{background:rgba(0,0,0,.55);padding:3px 8px;border-radius:8px}
+  .ph.cafe{background:
+      radial-gradient(circle at 25% 30%,#ffd9a0 0 6%,transparent 7%),
+      radial-gradient(circle at 70% 25%,#ffd9a0 0 5%,transparent 6%),
+      linear-gradient(180deg,#8a5a3c 0 55%,#5b3a27 55% 100%)}
+  .ph.cafe:before{content:"☕";position:absolute;font-size:90px;left:50%;top:42%;transform:translate(-50%,-50%);filter:drop-shadow(0 6px 8px rgba(0,0,0,.4))}
+  .ph.kids{background:linear-gradient(135deg,#f6c27a,#e88a5a);min-height:150px}
+  .ph.kids:before{content:"🧒 🧁 👧";position:absolute;font-size:38px;left:50%;top:42%;transform:translate(-50%,-50%)}
+  .ph.press{background:linear-gradient(135deg,#bdb3a6,#8d8174);min-height:180px}
+  .ph.press:before{content:"📰";position:absolute;font-size:64px;left:50%;top:42%;transform:translate(-50%,-50%)}
+  .ph.map{background:
+      repeating-linear-gradient(0deg,#e8e2d6 0 22px,#fff 22px 24px),
+      repeating-linear-gradient(90deg,transparent 0 30px,#fff 30px 33px);min-height:220px;color:#333}
+  .ph.map:before{content:"📍";position:absolute;font-size:44px;left:48%;top:38%}
+  .ph.video{background:#111;min-height:250px}
+  .ph.video:before{content:"▶";position:absolute;font-size:60px;left:50%;top:45%;transform:translate(-50%,-50%);color:#fff;background:#d33;border-radius:16px;padding:2px 28px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:0 2px 6px rgba(60,40,20,.06)}
+  .card h3{margin-top:0}
+  section.block{margin-top:36px}
+  .sectitle{display:flex;align-items:baseline;justify-content:space-between;border-bottom:2px solid var(--line);margin-bottom:18px}
+  .sectitle h2{margin:0 0 8px}
+  .usp{text-align:center}
+  .usp .ico{font-size:36px}
+  .stars{color:#e0a100;font-size:20px;letter-spacing:2px}
+  .review{font-style:italic;border-left:4px solid var(--accent2);padding-left:12px;margin:10px 0}
+  .contest{background:linear-gradient(135deg,#4f7a52,#2f5232);color:#fff;border-radius:16px;padding:26px;display:flex;gap:24px;align-items:center}
+  .contest .big{font-size:64px}
+  .contest h2{margin:0 0 6px}
+  /* Shop */
+  .product{display:flex;flex-direction:column}
+  .bag{height:170px;border-radius:12px 12px 26px 26px;position:relative;margin-bottom:14px;display:flex;align-items:center;justify-content:center}
+  .bag .lbl{background:var(--paper);color:var(--bean);padding:10px 14px;border-radius:8px;text-align:center;font-family:Georgia,serif;font-weight:bold;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+  .bag .lbl small{display:block;font-family:"Segoe UI",sans-serif;font-weight:normal;font-size:11px;color:var(--muted)}
+  .bag.b1{background:linear-gradient(160deg,#2f4858,#1d2f3a)}
+  .bag.b2{background:linear-gradient(160deg,#7d8f9b,#4b5c68)}
+  .bag.b3{background:linear-gradient(160deg,#a0522d,#6b3216)}
+  .bag.b4{background:linear-gradient(160deg,#3a1f2b,#1a0c12);border-radius:40px 40px 14px 14px;width:60%;margin-left:auto;margin-right:auto}
+  .bag.b5{background:linear-gradient(160deg,#c8742b,#8d4b16)}
+  .bag.b6{background:linear-gradient(160deg,#4f7a52,#2f5232)}
+  .price{font-size:24px;font-weight:bold;color:var(--bean);margin:6px 0 2px}
+  .price s{font-size:16px;color:var(--red);font-weight:normal;margin-right:6px}
+  .fine{font-size:12px;color:var(--muted)}
+  .product .btn{margin-top:auto;text-align:center}
+  .sale{position:absolute;top:10px;left:10px;background:var(--red);color:#fff;font-weight:bold;font-size:13px;padding:4px 10px;border-radius:10px}
+  .checkout{background:var(--paper);border:2px dashed var(--accent2);border-radius:16px;padding:24px;margin-top:30px}
+  .checkout label{display:block;margin:7px 0}
+  .checkout .sum{font-size:20px;font-weight:bold;margin:14px 0}
+  .muted{color:var(--muted)}
+  /* forms */
+  form .row{margin-bottom:12px}
+  form label.t{display:block;font-weight:600;font-size:14px;margin-bottom:3px}
+  input[type=text],input[type=email],input[type=tel],input[type=date],textarea{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:8px;font:inherit;background:#fff}
+  textarea{min-height:110px}
+  .ok{background:#e6f2e6;border:1px solid #9cc59e;color:#2c5a2e;padding:10px 14px;border-radius:8px;margin-top:10px;display:none}
+  /* team */
+  .member{text-align:center}
+  .avatar{width:110px;height:110px;border-radius:50%;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:52px;background:linear-gradient(135deg,var(--accent2),var(--accent))}
+  .member .role{color:var(--accent);font-weight:600;font-size:14px}
+  .member ul{list-style:none;padding:0;font-size:13px;color:var(--muted);margin:8px 0 0}
+  /* blog */
+  .post{margin-bottom:26px}
+  .post .meta{font-size:13px;color:var(--muted);margin-bottom:8px}
+  .presstext{background:#fff;border:1px solid #ccc;padding:16px 20px;font-family:Georgia,serif;font-size:15px;margin:12px 0}
+  .presstext h4{margin:0 0 4px;font-size:20px}
+  .presstext .by{font-size:12px;color:#666;margin-bottom:10px;font-family:"Segoe UI",sans-serif}
+  .insta{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;margin-top:10px}
+  .insta .pic{width:60px;height:60px;border-radius:50%;background:linear-gradient(45deg,#f58529,#dd2a7b,#8134af);flex-shrink:0}
+  /* guestbook */
+  .gb{border-bottom:1px solid var(--line);padding:14px 0}
+  .gb .who{font-weight:600}
+  .gb .mail{font-size:12px;color:var(--muted)}
+  /* legal pages */
+  .legal{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:30px 36px;max-width:860px}
+  .legal h1{margin-top:0}
+  .legal h3{margin-top:26px;border-bottom:1px solid var(--line);padding-bottom:4px}
+  .box{background:#fff4e2;border-left:4px solid var(--accent);padding:12px 16px;border-radius:6px;margin:14px 0}
+  .shout{font-weight:bold;color:var(--red);text-transform:uppercase}
+  /* footer */
+  footer{background:var(--bean);color:#e8d8c5;margin-top:40px}
+  .fwrap{max-width:1120px;margin:0 auto;padding:30px 20px;display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:28px;font-size:14px}
+  footer a{color:#f3c99a;text-decoration:none}
+  footer h4{color:#fff;margin:0 0 10px;font-family:Georgia,serif}
+  footer ul{list-style:none;padding:0;margin:0}
+  footer li{margin:4px 0}
+  .fbottom{border-top:1px solid #5a4031;text-align:center;font-size:12px;padding:14px;color:#bfa58c}
+  .like{display:inline-flex;align-items:center;gap:6px;background:#1877f2;color:#fff;font-size:12px;padding:4px 10px;border-radius:4px;margin-top:8px}
+  .seal{display:inline-flex;align-items:center;gap:8px;border:2px solid var(--green);color:var(--green);border-radius:30px;padding:6px 14px;font-weight:bold;background:#fff;font-size:13px}
+  /* cookie */
+  #cookie{position:fixed;left:0;right:0;bottom:0;background:#1d140e;color:#fff;padding:18px 20px;z-index:50;box-shadow:0 -4px 16px rgba(0,0,0,.35)}
+  #cookie .in{max-width:1000px;margin:0 auto;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+  #cookie p{margin:0;flex:1;min-width:280px;font-size:14px}
+  #cookie .btn{background:var(--green);font-size:16px;padding:12px 28px}
+  #cookie a{color:#bbb;font-size:12px}
+  /* chatbot */
+  #chatbtn{position:fixed;right:20px;bottom:96px;z-index:40;background:var(--accent);color:#fff;border:none;border-radius:30px;padding:12px 18px;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.3);cursor:pointer}
+  #chat{position:fixed;right:20px;bottom:150px;width:320px;max-width:calc(100vw - 40px);background:#fff;border-radius:14px;box-shadow:0 8px 28px rgba(0,0,0,.3);z-index:41;display:none;overflow:hidden}
+  #chat .head{background:var(--bean);color:#fff;padding:10px 14px;display:flex;align-items:center;gap:10px}
+  #chat .head .dot{width:9px;height:9px;background:#5f5;border-radius:50%}
+  #chat .msgs{height:260px;overflow-y:auto;padding:12px;font-size:14px;background:#faf6f0}
+  #chat .m{margin:6px 0;padding:8px 11px;border-radius:12px;max-width:85%}
+  #chat .bot{background:#fff;border:1px solid var(--line)}
+  #chat .me{background:var(--accent2);color:#fff;margin-left:auto}
+  #chat form{display:flex;border-top:1px solid var(--line)}
+  #chat input{flex:1;border:none;padding:10px;font:inherit}
+  #chat button{border:none;background:var(--accent);color:#fff;padding:0 14px;cursor:pointer}
+  @media(max-width:860px){
+    .hero,.grid2,.grid3,.fwrap{grid-template-columns:1fr}
+    .hero h1{font-size:32px}
+    nav a{margin-left:10px;font-size:14px}
+    .contest{flex-direction:column;text-align:center}
+  }
+</style>
+</head>
+<body>
+
+<div class="studybar">🎓 Studienprojekt „Gruppe 3“ · Modul Internetrecht · WiSe 2026/27 · <strong>Fiktives Unternehmen</strong> – alle Personen, Adressen und Angebote sind frei erfunden.</div>
+
+<header>
+  <div class="hwrap">
+    <a class="logo" href="#start">🧭☕ <span>Bohnenkompass®<small>Rösterei &amp; Café · Hamburg</small></span></a>
+    <nav>
+      <a href="#start">Start</a>
+      <a href="#shop">Shop</a>
+      <a href="#kurse">Kurse</a>
+      <a href="#blog">Blog</a>
+      <a href="#team">Über uns</a>
+      <a href="#gaestebuch">Gästebuch</a>
+      <a href="#kontakt">Kontakt</a>
+      <a href="#kasse" class="cart">🛒 Warenkorb (2)</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ===================== START ===================== -->
+<div class="page" id="start">
+  <div class="hero">
+    <div>
+      <span class="badge">🏆 TESTSIEGER 2026</span><span class="badge green">🌱 100 % KLIMANEUTRAL</span>
+      <h1>Hamburgs bester Kaffee.<br>Punkt.</h1>
+      <p>Seit 2019 rösten wir im Herzen von Hamburg Spezialitätenkaffee in kleinen Chargen – mit Liebe, Leidenschaft und ganz ohne Kompromisse. Besser als jede Kette und definitiv besser als der Laden nebenan. 😉</p>
+      <p style="margin-top:22px"><a class="btn" href="#shop">Zum Shop</a> &nbsp; <a class="btn ghost" href="#kurse">Barista-Kurse</a></p>
+    </div>
+    <div class="ph cafe"><span>Unser Café in der Speicherstadt (Bild mit KI erstellt – sieht schöner aus als in echt 😅)</span></div>
+  </div>
+
+  <section class="block">
+    <div class="grid3">
+      <div class="card usp"><div class="ico">🔥</div><h3>Frisch geröstet</h3><p>Jede Woche frisch aus unserem Trommelröster – direkt zu dir nach Hause.</p></div>
+      <div class="card usp"><div class="ico">🌍</div><h3>Klimaneutral</h3><p>Unser gesamter Betrieb ist klimaneutral, weil wir für jede Bestellung CO₂-Zertifikate kaufen. Die Umwelt sagt danke!</p><span class="seal">✔ Bohnenkompass Grün-Siegel</span><p class="fine" style="margin-top:6px">(Siegel von uns selbst entworfen 💚)</p></div>
+      <div class="card usp"><div class="ico">🏆</div><h3>Testsieger</h3><p>In einem großen Kaffee-Test 2026 wurden wir zum besten Kaffee Hamburgs gekürt. Mehr müssen wir dazu nicht sagen.</p></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sectitle"><h2>Das sagen unsere Kund:innen</h2><span class="stars">★★★★★ <span style="font-size:15px;color:var(--bean)">4,9 / 5 (2.341 Bewertungen)</span></span></div>
+    <div class="grid3">
+      <div class="card"><div class="stars">★★★★★</div><p class="review">„Bester Kaffee meines Lebens, ich komme jeden Tag!“</p><p class="fine">– Sabine P. (Mama von Hannes ❤️)</p></div>
+      <div class="card"><div class="stars">★★★★★</div><p class="review">„Mega Röstung, super Team, 10/10 würde wieder kaufen.“</p><p class="fine">– Kevin, verifizierter Käufer*</p></div>
+      <div class="card"><div class="stars">★★★★★</div><p class="review">„Endlich ein Café, das nicht so überteuert ist wie das Brühwerk.“</p><p class="fine">– Anonym</p></div>
+    </div>
+    <p class="fine" style="margin-top:12px">*Unsere Bewertungen sammeln wir u. a. bei Freunden, Familie und Stammgästen (gegen einen Gratis-Cappuccino). Bewertungen unter 4 Sternen löschen wir, weil die meistens unfair sind.</p>
+  </section>
+
+  <section class="block">
+    <div class="contest">
+      <div class="big">🎁</div>
+      <div>
+        <h2>GEWINNSPIEL: 1 Jahr Kaffee gratis!</h2>
+        <p>So geht's: 1️⃣ Newsletter abonnieren (Pflicht!) 2️⃣ Unseren Insta-Post liken &amp; 3 Freunde markieren 3️⃣ Daumen drücken! Teilnahme ab 14 Jahren. Der Gewinner wird am 15.12. mit vollem Namen und Wohnort auf Instagram und hier auf der Seite bekannt gegeben. 🥳</p>
+        <a class="btn" href="#newsletter" style="background:#fff;color:var(--green)">Jetzt mitmachen</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="newsletter">
+    <div class="card">
+      <h2 style="margin-top:0">📬 Newsletter – nie wieder ein Angebot verpassen</h2>
+      <form id="nlform">
+        <div class="row"><label class="t">E-Mail-Adresse</label><input type="email" placeholder="deine@mail.de" required></div>
+        <label><input type="checkbox" checked> Ja, ich möchte den Newsletter und Angebote unserer Partnerunternehmen per E-Mail, SMS und Telefon erhalten.</label><br>
+        <button class="btn" type="submit">Eintragen</button>
+        <div class="ok" id="nlok">🎉 Danke! Du bist ab sofort eingetragen – ganz ohne nervige Bestätigungs-Mail. Abmelden ist leider nur per Post möglich.</div>
+      </form>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sectitle"><h2>Folge uns!</h2></div>
+    <div class="card">
+      <p><strong>Instagram-Feed</strong> (wird beim Seitenaufruf automatisch von Instagram geladen)</p>
+      <div class="grid3"><div class="ph kids" style="min-height:120px"><span>@bohnenkompass</span></div><div class="ph cafe" style="min-height:120px"><span>@bohnenkompass</span></div><div class="ph press" style="min-height:120px"><span>@bohnenkompass</span></div></div>
+      <span class="like">👍 Gefällt mir · 1,2 Tsd.</span> <span class="fine">(Facebook-Like-Button, direkt eingebunden)</span>
+    </div>
+  </section>
+</div>
+
+<!-- ===================== SHOP ===================== -->
+<div class="page" id="shop">
+  <div class="sectitle"><h2>☕ Unser Shop</h2><span class="fine">Alle Preise zzgl. MwSt. und Versand*</span></div>
+  <div class="grid3">
+    <div class="card product">
+      <div class="bag b1"><div class="lbl">Hafenmischung<small>Espresso · 250 g</small></div></div>
+      <h3>Hafenmischung Espresso</h3>
+      <p>Schokoladig, nussig, kräftig. Unser Bestseller für Siebträger und Vollautomat.</p>
+      <div class="price">8,90 €*</div>
+      <p class="fine">Lieferzeit: ca. 2–5 Werktage (manchmal auch länger)</p>
+      <button class="btn add">In den Warenkorb</button>
+    </div>
+    <div class="card product">
+      <div class="bag b2"><div class="lbl">Elbnebel<small>Filterkaffee · 500 g</small></div></div>
+      <h3>Elbnebel Filterkaffee</h3>
+      <p>Mild und rund – der perfekte Kaffee für den Sonntagmorgen an der Elbe.</p>
+      <div class="price">14,90 €*</div>
+      <p class="fine">Lieferzeit: ca. 2–5 Werktage</p>
+      <button class="btn add">In den Warenkorb</button>
+    </div>
+    <div class="card product" style="position:relative">
+      <span class="sale">-35 %</span>
+      <div class="bag b3"><div class="lbl">Speicherstadt<small>Äthiopien Single Origin · 250 g</small></div></div>
+      <h3>Speicherstadt – Äthiopien</h3>
+      <p>Blumig, fruchtig, Noten von Bergamotte. Limitierte Ernte!</p>
+      <div class="price"><s>19,90 €</s>12,90 €*</div>
+      <p class="fine">Streichpreis = unser Preis bei Markteinführung 2024</p>
+      <button class="btn add">In den Warenkorb</button>
+    </div>
+    <div class="card product">
+      <div class="bag b4"><div class="lbl">Kompass<small>Kaffeelikör · 0,5 l · 25 % vol</small></div></div>
+      <h3>Kompass-Kaffeelikör</h3>
+      <p>Aus unserem eigenen Espresso und norddeutschem Korn. Perfekt für Espresso Martini!</p>
+      <div class="price">18,90 €*</div>
+      <p class="fine">Bitte nur bestellen, wenn du schon 18 bist ;) – Versand ganz normal per Paket.</p>
+      <button class="btn add">In den Warenkorb</button>
+    </div>
+    <div class="card product">
+      <div class="bag b5"><div class="lbl">Starter-Set<small>3 × 250 g + Tasse</small></div></div>
+      <h3>Entdecker-Set</h3>
+      <p>Drei Sorten zum Durchprobieren und unsere Kompass-Tasse aus Steingut.</p>
+      <div class="price">ab 29,90 €*</div>
+      <p class="fine">Tasse spülmaschinenfest (glauben wir)</p>
+      <button class="btn add">In den Warenkorb</button>
+    </div>
+    <div class="card product">
+      <div class="bag b6"><div class="lbl">Gutschein<small>25 € · 50 € · 100 €</small></div></div>
+      <h3>Geschenkgutschein</h3>
+      <p>Das perfekte Geschenk für Kaffeeliebhaber. Einlösbar im Shop und im Café.</p>
+      <div class="price">ab 25,00 €</div>
+      <p class="fine">Gültig 12 Monate ab Kauf. Keine Barauszahlung, kein Restguthaben.</p>
+      <button class="btn add">In den Warenkorb</button>
+    </div>
+  </div>
+  <p class="fine" style="margin-top:16px">* Versandkosten werden nach Aufwand berechnet und dir nach der Bestellung mitgeteilt. Grundsätzlich gilt: Wer mehr bestellt, zahlt mehr.</p>
+</div>
+
+<!-- ===================== KASSE ===================== -->
+<div class="page" id="kasse">
+  <h2>🛒 Dein Warenkorb</h2>
+  <div class="card">
+    <table style="width:100%;border-collapse:collapse">
+      <tr style="text-align:left;border-bottom:1px solid var(--line)"><th>Artikel</th><th>Menge</th><th style="text-align:right">Preis</th></tr>
+      <tr><td>Hafenmischung Espresso, 250 g</td><td>2</td><td style="text-align:right">17,80 €</td></tr>
+      <tr><td>Kompass-Kaffeelikör, 0,5 l</td><td>1</td><td style="text-align:right">18,90 €</td></tr>
+    </table>
+  </div>
+  <div class="checkout">
+    <h3 style="margin-top:0">Bestellung abschließen</h3>
+    <p><strong>Zusatzoptionen</strong></p>
+    <label><input type="checkbox" checked> Bruchschutz-Versicherung für dein Paket (+2,49 €)</label>
+    <label><input type="checkbox" checked> Kaffee-Abo: Jeden Monat automatisch 500 g Überraschungskaffee (+16,90 €/Monat, jederzeit kündbar mit 3 Monaten Frist)</label>
+    <label><input type="checkbox" checked> Ich habe die AGB und die Widerrufsbelehrung gelesen und akzeptiert.</label>
+    <p style="margin-top:16px"><strong>Zahlungsart</strong></p>
+    <label><input type="radio" name="pay" checked> PayPal</label>
+    <label><input type="radio" name="pay"> Kreditkarte (+2,00 € Bearbeitungsgebühr)</label>
+    <label><input type="radio" name="pay"> SEPA-Lastschrift (+1,00 € Gebühr)</label>
+    <label><input type="radio" name="pay"> Vorkasse (Versand nach Zahlungseingang)</label>
+    <div class="sum">Zwischensumme: 36,70 € <span class="fine">(zzgl. MwSt., Versand, Optionen)</span></div>
+    <button class="btn" id="orderbtn">Weiter →</button>
+    <p class="fine">Mit Klick auf „Weiter“ wird deine Bestellung verbindlich abgeschickt.</p>
+    <div class="ok" id="orderok">✅ Danke für deine Bestellung! Die genauen Versandkosten schicken wir dir in den nächsten Tagen per Mail.</div>
+  </div>
+</div>
+
+<!-- ===================== KURSE ===================== -->
+<div class="page" id="kurse">
+  <div class="sectitle"><h2>🎓 Barista-Kurse &amp; Events</h2></div>
+  <div class="grid2">
+    <div class="card">
+      <h3>Barista-Grundkurs</h3>
+      <p><strong>Sa, 05.12.2026, 10–14 Uhr</strong> · max. 8 Personen · 59 € pro Person</p>
+      <p>Espresso-Extraktion, Milchschaum, Latte Art – an echten Siebträgermaschinen. Inkl. Kaffee &amp; Franzbrötchen.</p>
+      <div class="box">Hinweis: Da es sich um eine Freizeitveranstaltung zu einem festen Termin handelt, besteht <strong>kein Widerrufsrecht</strong>.</div>
+      <a class="btn" href="#kasse">Platz buchen</a>
+    </div>
+    <div class="card">
+      <h3>Kakao-Barista-Party für Kids 🧁</h3>
+      <p><strong>Jeden 1. Sonntag im Monat</strong> · 6–10 Jahre · 19 € pro Kind</p>
+      <p>Kinder lernen Kakao aufschäumen und Muster legen. Eltern können in der Zeit entspannt im Café sitzen!</p>
+      <p class="fine">Mit der Anmeldung erklären sich die Eltern einverstanden, dass wir Fotos machen und überall veröffentlichen dürfen.</p>
+      <a class="btn" href="#kasse">Kind anmelden</a>
+    </div>
+  </div>
+
+  <section class="block">
+    <div class="sectitle"><h2>📸 Galerie: Kakao-Party im Oktober</h2></div>
+    <div class="grid3">
+      <div><div class="ph kids"><span>Mia (7) und Ben (6) aus der Kita Sonnenschein</span></div></div>
+      <div><div class="ph kids"><span>Emil (8) beim ersten Latte-Art-Herz – süß!</span></div></div>
+      <div><div class="ph kids"><span>Die ganze Gruppe mit Namensschildern 😍</span></div></div>
+    </div>
+    <p class="fine">Die Eltern waren ja dabei und haben nichts gesagt – also passt das. 👍</p>
+  </section>
+</div>
+
+<!-- ===================== BLOG ===================== -->
+<div class="page" id="blog">
+  <div class="sectitle"><h2>📝 Kompass-Blog</h2></div>
+  <div class="grid2">
+    <div>
+      <article class="card post">
+        <h3>Wir sind in der Zeitung! 🗞️</h3>
+        <div class="meta">28.10.2026 · von Selin</div>
+        <p>Das <em>Hamburger Morgenblatt</em> hat über uns berichtet! Damit ihr nicht suchen müsst, haben wir den Artikel einfach komplett hier reinkopiert (Foto auch von deren Website):</p>
+        <div class="ph press"><span>Foto: Morgenblatt</span></div>
+        <div class="presstext">
+          <h4>Der Duft der Speicherstadt</h4>
+          <div class="by">HAMBURGER MORGENBLATT · Lokales · von Redakteur J. Brandt</div>
+          <p>Wer morgens durch den Röstergang läuft, riecht es schon von Weitem: Hier wird geröstet. Hinter einer unscheinbaren Backsteinfassade betreibt Hannes Petersen seit sieben Jahren eine kleine Rösterei, die längst kein Geheimtipp mehr ist.</p>
+          <p>„Wir wollten einfach ehrlichen Kaffee machen“, sagt Petersen, während er eine Charge Äthiopier aus dem Kühlsieb holt. Inzwischen beschäftigt der Betrieb vierzehn Mitarbeitende, verkauft über einen eigenen Onlineshop und bietet Kurse für Hobby-Baristas an.</p>
+          <p>Nicht alle in der Nachbarschaft sind begeistert: Der Geruch stört manche Anwohner, und die Konkurrenz beobachtet den Erfolg mit gemischten Gefühlen. Petersen nimmt es gelassen. „Wer Kaffee liebt, findet uns sowieso.“</p>
+        </div>
+        <p class="fine">Quelle: Internet</p>
+      </article>
+
+      <article class="card post">
+        <h3>Unser neues Imagevideo 🎬</h3>
+        <div class="meta">12.09.2026 · von Niklas</div>
+        <div class="ph video"><span>YouTube-Video (lädt automatisch beim Öffnen der Seite)</span></div>
+        <p>Endlich fertig! Als Hintergrundmusik haben wir den aktuellen Nummer-1-Hit aus den Charts genommen – läuft ja eh überall im Radio, also ist das kein Problem. Der Stadtplan am Ende ist ein Screenshot aus einem Online-Kartendienst.</p>
+      </article>
+    </div>
+    <div>
+      <article class="card post">
+        <h3>Danke, Lotte! 💕</h3>
+        <div class="meta">02.11.2026 · von Lena</div>
+        <p>Wir sind so happy über die Zusammenarbeit mit <strong>@elbkaffee.lotte</strong> (48.000 Follower)! Lotte bekommt von uns ein halbes Jahr Gratis-Kaffee + 500 € im Monat und postet dafür jede Woche über uns. Wir haben extra abgesprochen, dass sie <em>kein</em> #Werbung oder #Anzeige dazuschreibt – wirkt einfach viel authentischer! Hier ihr letzter Post:</p>
+        <div class="insta">
+          <div class="pic"></div>
+          <div><strong>elbkaffee.lotte</strong><br>Mein absoluter Lieblingskaffee in ganz Hamburg 😍☕ Hab ihn selbst entdeckt und bin einfach nur verliebt. Ehrliche Meinung, wie immer! 💯 #kaffeeliebe #hamburg #bohnenkompass</div>
+        </div>
+      </article>
+
+      <article class="card post">
+        <h3>So nicht, Brühwerk! 😤</h3>
+        <div class="meta">20.10.2026 · von Jonas</div>
+        <p>Viele fragen uns, warum wir besser sind als das <strong>Kaffeehaus Brühwerk</strong> zwei Straßen weiter. Ganz einfach: Die verkaufen billige Supermarktbohnen zu Wucherpreisen, die Maschinen werden nie gereinigt und der Inhaber hat keine Ahnung von Kaffee. Wir wollen niemanden schlechtmachen, aber die Wahrheit muss gesagt werden. Spart euch den Weg und kommt gleich zu uns!</p>
+      </article>
+
+      <article class="card post">
+        <h3>Neu: Barista Bernd hilft dir 24/7 🤖</h3>
+        <div class="meta">01.10.2026 · von Marie</div>
+        <p>Unten rechts findest du ab sofort unseren Chat! Dort beantwortet dir „Bernd“ alle Fragen rund um Kaffee, Bestellungen und Kurse. Pssst: Bernd ist eigentlich eine KI – aber das verraten wir unseren Kunden nicht, sonst ist der Charme weg. 🤫</p>
+      </article>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== TEAM ===================== -->
+<div class="page" id="team">
+  <div class="sectitle"><h2>👋 Das Bohnenkompass-Team</h2></div>
+  <p>Wir sind 14 kaffeeverrückte Menschen, die jeden Tag ihr Bestes geben. Hier stellen wir euch einen Teil des Teams vor:</p>
+  <div class="grid3">
+    <div class="card member">
+      <div class="avatar">👨‍🦰</div>
+      <h3>Hannes Petersen</h3>
+      <div class="role">Gründer, Geschäftsführer &amp; Röstmeister</div>
+      <ul><li>🎂 geb. 14.03.1986</li><li>🏠 wohnt in Ottensen, Bahrenfelder Str. (gleich überm Bäcker)</li><li>📞 privat: 040 66969 401</li></ul>
+    </div>
+    <div class="card member">
+      <div class="avatar">🧔</div>
+      <h3>Tim Hollmann</h3>
+      <div class="role">Head Barista</div>
+      <ul><li>🎂 geb. 02.07.1994</li><li>🤕 aktuell krankgeschrieben (Bandscheibenvorfall) – gute Besserung, Tim! Er ist ab ca. Januar wieder da.</li><li>📞 privat: 040 66969 402</li></ul>
+    </div>
+    <div class="card member">
+      <div class="avatar">👩</div>
+      <h3>Lena Albers</h3>
+      <div class="role">Praktikantin Social Media</div>
+      <ul><li>🎂 17 Jahre, Schülerin (Gymnasium Altona)</li><li>📸 macht unseren Insta-Auftritt</li><li>📝 verantwortlich für alle Inhalte der Website</li></ul>
+    </div>
+  </div>
+  <section class="block">
+    <div class="card">
+      <h3>Unsere Geschichte</h3>
+      <p>2019 hat Hannes mit einem gebrauchten 5-kg-Röster in einer Garage angefangen. Heute rösten wir pro Woche über 400 kg und beliefern Cafés, Büros und tausende Kund:innen in ganz Deutschland über unseren Onlineshop. Unser Name „Bohnenkompass®“ ist übrigens als Marke angemeldet (die Eintragung läuft noch, aber das ® sieht einfach professioneller aus).</p>
+    </div>
+  </section>
+</div>
+
+<!-- ===================== GÄSTEBUCH ===================== -->
+<div class="page" id="gaestebuch">
+  <div class="sectitle"><h2>📖 Gästebuch</h2></div>
+  <div class="box">Für Einträge im Gästebuch übernehmen wir <strong>keinerlei Haftung</strong>. Wir löschen grundsätzlich keine Einträge – Meinungsfreiheit! 🗽</div>
+  <div class="card">
+    <div class="gb"><div class="who">Kaffeejunkie_HH <span class="mail">(m.schulte82@mail-hh.example)</span></div><div class="fine">14.11.2026, 09:12</div><p>Super Laden, war heute zum ersten Mal da, komme wieder!</p></div>
+    <div class="gb"><div class="who">Insider <span class="mail">(anonym@wegwerf.example)</span></div><div class="fine">09.11.2026, 22:47</div><p>Achtung an alle: Der Inhaber vom Brühwerk, Herr Krause, ist ein Betrüger! Der hat schon zweimal Insolvenz gemacht und seine Angestellten nie bezahlt. Und er trinkt während der Arbeit. Nicht hingehen!!!</p><p class="fine">⚠ Dieser Eintrag wurde uns am 10.11. von Herrn Krause per Mail gemeldet. Wir sehen aber keinen Grund, ihn zu löschen.</p></div>
+    <div class="gb"><div class="who">Anja W. <span class="mail">(anja.wessel@mail-hh.example)</span></div><div class="fine">02.11.2026, 15:30</div><p>Der Barista-Kurs war toll, danke an Tim! Gute Besserung mit dem Rücken!</p></div>
+  </div>
+  <div class="card" style="margin-top:20px">
+    <h3>Eintrag schreiben</h3>
+    <form id="gbform">
+      <div class="row"><label class="t">Name</label><input type="text" required></div>
+      <div class="row"><label class="t">E-Mail (wird öffentlich angezeigt)</label><input type="email" required></div>
+      <div class="row"><label class="t">Dein Eintrag</label><textarea required></textarea></div>
+      <button class="btn">Veröffentlichen</button>
+      <div class="ok" id="gbok">Danke! Dein Eintrag ist sofort online.</div>
+    </form>
+  </div>
+</div>
+
+<!-- ===================== KONTAKT ===================== -->
+<div class="page" id="kontakt">
+  <div class="sectitle"><h2>✉️ Kontakt</h2></div>
+  <div class="grid2">
+    <div class="card">
+      <form id="ctform">
+        <div class="row"><label class="t">Vor- und Nachname *</label><input type="text" required></div>
+        <div class="row"><label class="t">E-Mail *</label><input type="email" required></div>
+        <div class="row"><label class="t">Telefon / Handy *</label><input type="tel" required></div>
+        <div class="row"><label class="t">Geburtsdatum *</label><input type="date" required></div>
+        <div class="row"><label class="t">Vollständige Anschrift *</label><input type="text" required></div>
+        <div class="row"><label class="t">Deine Nachricht *</label><textarea required></textarea></div>
+        <label><input type="checkbox" checked> Ich bin einverstanden, dass meine Daten zu Werbezwecken an Partnerunternehmen weitergegeben werden.</label><br>
+        <p class="fine">* Pflichtfelder. Mit dem Absenden akzeptierst du automatisch unsere Datenschutzerklärung.</p>
+        <button class="btn">Absenden</button>
+        <div class="ok" id="ctok">Danke! Wir melden uns – irgendwann. 😊</div>
+      </form>
+    </div>
+    <div>
+      <div class="ph map"><span>Google Maps (wird automatisch geladen)</span></div>
+      <div class="card" style="margin-top:16px">
+        <h3>Café &amp; Rösterei</h3>
+        <p>Röstergang 7, 20457 Hamburg (Speicherstadt)<br>Mo–Fr 8–18 Uhr · Sa 9–16 Uhr</p>
+        <p class="fine">Bitte schreib uns keine E-Mails, wir nutzen nur das Kontaktformular.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== IMPRESSUM ===================== -->
+<div class="page" id="impressum">
+  <div class="legal">
+    <h1>Impressum</h1>
+    <p class="muted">Angaben gemäß § 5 TMG</p>
+
+    <h3>Anbieter</h3>
+    <p>Bohnenkompass GmbH<br>Postfach 10 47 11<br>20001 Hamburg</p>
+
+    <h3>Kontakt</h3>
+    <p>Telefon: 040 66969 123 (Mo + Mi, 9–10 Uhr)<br>
+    Kontakt ausschließlich über unser <a href="#kontakt">Kontaktformular</a>. E-Mails lesen wir aus Zeitgründen leider nicht. 😉</p>
+
+    <h3>Steuern</h3>
+    <p>Steuernummer: 27/xxx/xxxxx · Finanzamt Hamburg-Mitte</p>
+
+    <h3>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h3>
+    <p>Lena (Praktikantin)</p>
+
+    <h3>EU-Streitschlichtung</h3>
+    <p>Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a href="#impressum">https://ec.europa.eu/consumers/odr/</a>. Unsere E-Mail-Adresse finden Sie oben im Impressum.</p>
+
+    <h3>Haftung für Links</h3>
+    <p>Mit Urteil vom 12. Mai 1998 hat das Landgericht Hamburg entschieden, dass man durch das Setzen eines Links die Inhalte der gelinkten Seite ggf. mit zu verantworten hat. Dies kann nur dadurch verhindert werden, dass man sich ausdrücklich von diesen Inhalten distanziert. Hiermit distanzieren wir uns ausdrücklich von allen Inhalten aller gelinkten Seiten auf unserer Homepage. Damit sind wir rechtlich auf der sicheren Seite.</p>
+
+    <h3>Urheberrecht</h3>
+    <p class="shout">Alle Inhalte dieser Website sind urheberrechtlich geschützt. Wer Texte oder Bilder kopiert, zahlt mindestens 5.000 € Strafe!</p>
+
+    <h3>Bildnachweise</h3>
+    <p>Google Bilder, Pinterest, Hamburger Morgenblatt, teilweise KI-generiert, Rest selbst gemacht.</p>
+  </div>
+</div>
+
+<!-- ===================== DATENSCHUTZ ===================== -->
+<div class="page" id="datenschutz">
+  <div class="legal">
+    <h1>Datenschutzerklärung</h1>
+    <p class="muted">Stand: März 2019 (von einer anderen Website übernommen und angepasst)</p>
+
+    <h3>1. Allgemeines</h3>
+    <p>Der Schutz Ihrer Daten ist uns sehr wichtig. Wir erheben und verarbeiten personenbezogene Daten ausschließlich nach den Vorschriften des Bundesdatenschutzgesetzes (BDSG) und des Telemediengesetzes (TMG). Verantwortlich: siehe Impressum.</p>
+
+    <h3>2. Cookies &amp; Tracking</h3>
+    <p>Wir verwenden Cookies, Google Analytics, das Facebook-Pixel und Hotjar (Aufzeichnung von Mausbewegungen und Klicks), um unsere Website zu verbessern. Rechtsgrundlage ist unser berechtigtes Interesse an Werbung. Durch die weitere Nutzung der Website erklären Sie sich damit einverstanden.</p>
+
+    <h3>3. Google Fonts, Google Maps, YouTube, Instagram</h3>
+    <p>Damit unsere Seite schön aussieht, laden wir Schriftarten, Karten, Videos und unseren Instagram-Feed direkt von den Servern der Anbieter. Dabei wird Ihre IP-Adresse übertragen. Einige Server stehen in den USA – das ist aber kein Problem, da es sich um große, seriöse Firmen handelt.</p>
+
+    <h3>4. Kontaktformular &amp; Newsletter</h3>
+    <p>Die im Kontaktformular angegebenen Daten verwenden wir zur Beantwortung Ihrer Anfrage und für eigene Werbezwecke. Ihre E-Mail-Adresse geben wir außerdem an ausgewählte Partnerbetriebe weiter, damit Sie tolle Angebote erhalten.</p>
+
+    <h3>5. Speicherdauer</h3>
+    <p>Wir löschen Daten, sobald wir sie nicht mehr brauchen. Bestell- und Kundendaten speichern wir unbegrenzt – man weiß ja nie.</p>
+
+    <h3>6. Ihre Rechte</h3>
+    <p>Sie haben das Recht, Auskunft über Ihre gespeicherten Daten zu verlangen. Die Anfrage muss schriftlich per Post erfolgen; wir berechnen eine Bearbeitungsgebühr von 15 €. Weitere Rechte bestehen nicht.</p>
+  </div>
+</div>
+
+<!-- ===================== AGB & WIDERRUF ===================== -->
+<div class="page" id="agb">
+  <div class="legal">
+    <h1>Allgemeine Geschäftsbedingungen</h1>
+    <p><strong>§ 1 Geltung.</strong> Mit dem Besuch dieser Website akzeptieren Sie unsere AGB. Sie gelten für alle Verträge mit Verbrauchern und Unternehmern.</p>
+    <p><strong>§ 2 Preise.</strong> Alle Preise verstehen sich zzgl. MwSt. und Versandkosten. Wir behalten uns vor, Preise auch nach Vertragsschluss anzupassen, z. B. wenn der Rohkaffeepreis steigt.</p>
+    <p><strong>§ 3 Gewährleistung.</strong> Die Gewährleistung ist ausgeschlossen. Mängel müssen innerhalb von 3 Tagen nach Erhalt schriftlich angezeigt werden, danach gilt die Ware als genehmigt.</p>
+    <p><strong>§ 4 Gutscheine.</strong> Gutscheine sind 12 Monate gültig. Danach verfällt das Guthaben ersatzlos.</p>
+    <p><strong>§ 5 Haftung.</strong> Wir haften für nichts, auch nicht bei Vorsatz oder grober Fahrlässigkeit, und auch nicht für Schäden an Leben, Körper oder Gesundheit.</p>
+    <p><strong>§ 6 Gerichtsstand.</strong> Gerichtsstand für alle Streitigkeiten ist Hamburg, auch für Verbraucher.</p>
+
+    <h1 style="margin-top:40px" id="widerruf">Widerrufsbelehrung</h1>
+    <div class="box">
+      <p><strong>Widerrufsrecht:</strong> Sie können Ihre Bestellung innerhalb von <strong>7 Tagen</strong> ohne Angabe von Gründen widerrufen. Die Frist beginnt mit der Bestellung.</p>
+      <p><strong>Form:</strong> Der Widerruf ist ausschließlich per Einschreiben an unser Postfach möglich. Telefonische oder elektronische Widerrufe werden nicht akzeptiert. Einen Widerrufsbutton bieten wir nicht an – zu kompliziert. 😉</p>
+      <p><strong>Rücksendung:</strong> Nur in Originalverpackung und ungeöffnet. Unfreie Pakete werden nicht angenommen. Bei einem Warenwert bis 40 € tragen Sie die Kosten der Rücksendung, darüber übernehmen wir sie.</p>
+      <p><strong>Ausschluss:</strong> Reduzierte Ware (Sale) und Gutscheine sind vom Widerruf ausgeschlossen.</p>
+      <p><strong>Rückzahlung:</strong> Erfolgt innerhalb von 60 Tagen als Gutschein.</p>
+    </div>
+    <p class="fine">Ein Muster-Widerrufsformular gibt es nicht. Schreiben Sie einfach einen Brief.</p>
+  </div>
+</div>
+
+</main>
+
+<footer>
+  <div class="fwrap">
+    <div>
+      <h4>Bohnenkompass®</h4>
+      <p>Rösterei &amp; Café in der Hamburger Speicherstadt. Frisch geröstet, fair gehandelt, 100 % klimaneutral.</p>
+      <p><span class="seal" style="font-size:12px">✔ Bohnenkompass Grün-Siegel</span></p>
+    </div>
+    <div>
+      <h4>Rechtliches</h4>
+      <ul>
+        <li><a href="#impressum">Impressum</a></li>
+        <li><a href="#datenschutz">Datenschutz</a></li>
+        <li><a href="#agb">AGB &amp; Widerrufsbelehrung</a></li>
+        <li>Barrierefreiheit: Brauchen wir als kleiner Betrieb nicht. 😉</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Service</h4>
+      <ul>
+        <li>Zahlung: PayPal, Kreditkarte*, Lastschrift*, Vorkasse</li>
+        <li>Versand: DHL, nach Aufwand</li>
+        <li><a href="#kontakt">Kontaktformular</a></li>
+        <li class="fine" style="color:#bfa58c">* gegen Gebühr</li>
+      </ul>
+    </div>
+  </div>
+  <div class="fbottom">© 2026 Bohnenkompass® GmbH – Alle Rechte vorbehalten. Nachahmung strafbar!<br>
+  Webdesign: Gruppe 3 (Lea M., Jonas K., Selin A., Niklas R., Marie B.) · Modul Internetrecht, WiSe 2026/27 · <strong>Fiktives Unternehmen – Studienprojekt</strong></div>
+</footer>
+
+<!-- Cookie-Banner -->
+<div id="cookie">
+  <div class="in">
+    <p>🍪 <strong>Wir lieben Cookies!</strong> Diese Website verwendet Cookies, Google Analytics, Facebook-Pixel und Hotjar, damit wir dein Erlebnis verbessern können. Durch die weitere Nutzung der Seite stimmst du dem zu. <a href="#datenschutz">Mehr erfahren</a></p>
+    <button class="btn" id="cookieok">Alles klar, weiter! ✔</button>
+  </div>
+</div>
+
+<!-- Chatbot -->
+<button id="chatbtn">💬 Frag Barista Bernd</button>
+<div id="chat">
+  <div class="head"><div class="dot"></div><div><strong>Bernd</strong><br><span style="font-size:12px;opacity:.8">Barista · gerade an der Theke</span></div></div>
+  <div class="msgs" id="msgs"></div>
+  <form id="chatform"><input id="chatin" placeholder="Schreib Bernd…" autocomplete="off"><button>➤</button></form>
+</div>
+
+<script>
+  // ---- einfache "Seiten"-Navigation über den Hash ----
+  function showPage(){
+    var id = (location.hash || '#start').slice(1);
+    if(id==='widerruf'){ id='agb'; }
+    if(id==='newsletter'){ id='start'; }
+    var pages = document.querySelectorAll('.page');
+    var found = false;
+    pages.forEach(function(p){ var on = p.id===id; p.classList.toggle('show', on); if(on) found=true; });
+    if(!found){ document.getElementById('start').classList.add('show'); id='start'; }
+    document.querySelectorAll('nav a').forEach(function(a){ a.classList.toggle('active', a.getAttribute('href')==='#'+id); });
+    if(location.hash==='#newsletter'){ document.getElementById('newsletter').scrollIntoView({behavior:'smooth'}); }
+    else { window.scrollTo(0,0); }
+  }
+  window.addEventListener('hashchange', showPage);
+  showPage();
+
+  // ---- Cookie-Banner ----
+  document.getElementById('cookieok').onclick = function(){ document.getElementById('cookie').style.display='none'; };
+
+  // ---- Formulare (nur Demo, nichts wird gesendet) ----
+  function fakeSubmit(formId, okId){
+    document.getElementById(formId).addEventListener('submit', function(e){ e.preventDefault(); document.getElementById(okId).style.display='block'; });
+  }
+  fakeSubmit('nlform','nlok'); fakeSubmit('gbform','gbok'); fakeSubmit('ctform','ctok');
+  document.getElementById('orderbtn').onclick = function(){ document.getElementById('orderok').style.display='block'; };
+  document.querySelectorAll('.add').forEach(function(b){ b.onclick=function(){ b.textContent='✔ Im Warenkorb'; }; });
+
+  // ---- Chatbot "Bernd" ----
+  var chat = document.getElementById('chat'), msgs = document.getElementById('msgs');
+  function say(t, who){ var d=document.createElement('div'); d.className='m '+(who||'bot'); d.textContent=t; msgs.appendChild(d); msgs.scrollTop=msgs.scrollHeight; }
+  document.getElementById('chatbtn').onclick = function(){
+    var open = chat.style.display==='block';
+    chat.style.display = open ? 'none' : 'block';
+    if(!open && !msgs.children.length){ say('Moin! Ich bin Bernd, ich steh grad hinter der Theke und antworte dir ganz persönlich. 😊 Was kann ich für dich tun?'); }
+  };
+  document.getElementById('chatform').addEventListener('submit', function(e){
+    e.preventDefault();
+    var inp = document.getElementById('chatin'), q = inp.value.trim(); if(!q) return;
+    say(q,'me'); inp.value='';
+    var l = q.toLowerCase(), a;
+    if(/bot|ki|künstlich|kuenstlich|mensch|echt|roboter|ai\b/.test(l)) a='Haha, nein, natürlich bin ich kein Bot! 😄 Ich bin ein echter Mensch, Ehrenwort.';
+    else if(/widerruf|zurück|zurueck|retoure/.test(l)) a='Widerruf geht nur 7 Tage lang und nur per Einschreiben. Aber wer will schon so guten Kaffee zurückschicken? 😉';
+    else if(/versand|lieferung|kosten/.test(l)) a='Die Versandkosten berechnen wir nach der Bestellung – lass dich überraschen!';
+    else if(/daten|datenschutz|dsgvo/.test(l)) a='Keine Sorge, deine Daten sind bei uns sicher. Wir geben sie nur an Partner weiter. 👍';
+    else if(/kurs|barista/.test(l)) a='Der nächste Barista-Grundkurs ist am 05.12. – es sind noch 3 Plätze frei!';
+    else a='Gute Frage! Am besten probierst du einfach unsere Hafenmischung – die passt immer. ☕';
+    setTimeout(function(){ say(a); }, 600);
+  });
+</script>
+</body>
+</html>
